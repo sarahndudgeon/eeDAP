@@ -1,0 +1,102 @@
+Comments from the input file:
+Author: 
+Date: 
+Time: 
+
+For the Hamamatsu scanning at 20x
+    scan_scale = .4558
+For the Hamamatsu scanning at 40x
+    scan_scale = .2279
+
+Point Grey Grashopper Color (GRAS-03K2C-C)
+    cam_format = RGB24_640x480
+    cam_pixel_size = 7.4um
+Point Grey Flea2 Color (FL2G-50S5C-C): Full resolution, full format
+    cam_format = F7_RGB24_2448x2048
+    cam_pixel_size = 3.45
+Point Grey Flea2 Color (FL2G-50S5C-C): Standard format, aspect ratio = 1.33
+    cam_format = RGB24_1024x768
+    cam_pixel_size = 6.9
+
+Reminder:
+taskorder=2 user specified order
+taskorder=1 listed order
+taskorder=0 random order
+saveimages = 1  save WSI and camera images
+saveimages = 2  only save WSI image
+saveimages = 3  only save camera image
+saveimages = 4  don't save WSI and camera images
+
+
+Input File Task Formats
+task_checkMof4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_count,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1,    TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mark1_out,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,Qtext,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_radio1of4,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_slider,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+task_mitotic_expert,TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag
+task_mitotic_train, TaskID,TaskOrder,Slot,ROI_X,ROI_Y,ROI_W,ROI_H,IMG_W,IMG_H,MoveFlag,ZoomFlag,ExpertCheckBoxes1-8,Expert_Score
+task_mitotic_counts,TaskID,TaskOrder,Slot,MoveFlag,ZoomFlag
+
+SETTINGS
+NUMBER_OF_WSI	= 3 
+wsi_slot_1	= C:\000_whole_slides\registrationStudy\HER2-S05-6501-C8.svs 
+rgb_lut_slot_1	= icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_1	= 0.4957
+wsi_slot_2	= C:\000_whole_slides\registrationStudy\HER2-S05-9420-C7.svs 
+rgb_lut_slot_2	= icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_2    = 0.4957
+wsi_slot_3	= C:\000_whole_slides\registrationStudy\S06-10842_B5-ER.svs 
+rgb_lut_slot_3	= icc_profiles\rgb_lut_gamma_inv1p8.txt 
+scan_scale_3	= 0.4957
+label_pos	= 6
+reticleID	= KR-871
+cam_kind	= Firewire
+cam_format	= RGB24_1024x768
+cam_pixel_size	= 6.9
+mag_cam		= 1
+mag_lres	= 5
+mag_hres	= 20
+stage_label	= SCAN8Praparate_Ludl5000
+BG_Color_RGB	= 0.55=0.55=0.55
+FG_Color_RGB	= 0=0=0
+AxesBG_Color_RGB= 0.1=0.2=0.1
+FontSize	= 13
+saveimages	= 3
+taskorder	= 1
+
+BODY
+start
+finish
+registration_test,1st0001,-1,1,3912.5,5391.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,2nd0001,-1,1,9282.5,3831.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,3rd0001,-1,1,14351.5,7266.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,4th0001,-1,1,17183.5,9255.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,5th0001,-1,1,23297.5,6370.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,6th0001,-1,1,2639.5,14725.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,7th0001,-1,1,14709.5,15518.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,8th0001,-1,1,6658.5,23679.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,9th0001,-1,1,17163.5,25040.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,10th0001,-1,1,25721.5,12792.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,11st0001,-1,2,10885.5,4136.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,12nd0001,-1,2,15837.5,5681.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,13rd0001,-1,2,28911.5,12737.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,14th0001,-1,2,27236.5,17676.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,15th0001,-1,2,12677.5,8719.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,16th0001,-1,2,17839.5,12083.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,17th0001,-1,2,3464.5,13413.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,18th0001,-1,2,21205.5,22504.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,19th0001,-1,2,8113.5,19083.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,20th0001,-1,2,13899.5,17649.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,21st0001,-1,3,14118.5,12995.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,22nd0001,-1,3,20787.5,14676.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,23rd0001,-1,3,14104.5,18852.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,24th0001,-1,3,18778.5,10657.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,25th0001,-1,3,49490.5,15238.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,26th0001,-1,3,44917.5,32903.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,27th0001,-1,3,28590.5,30340.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,28th0001,-1,3,12145.5,33857.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,29th0001,-1,3,8064.5,26965.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+registration_test,30th0001,-1,3,20895.5,3787.5,799,799,799,799,Qtext_count,1,1,Q_Op1,Q_Op2,Q_Op3,Q_Op4
+

@@ -1,4 +1,4 @@
-function task_count(hObj)
+function task_globalReg_test(hObj)
 try
     
     handles = guidata(hObj);
@@ -40,19 +40,6 @@ try
             taskmgt_default(handles, 'on');
             handles = guidata(hObj);
             
-            % Static text question for count task
-            handles.textCount = uicontrol(...
-                'Parent', handles.task_panel, ...
-                'FontSize', handles.myData.settings.FontSize, ...
-                'Units', 'normalized', ...
-                'HorizontalAlignment', 'right', ...
-                'ForegroundColor', handles.myData.settings.FG_color, ...
-                'BackgroundColor', handles.myData.settings.BG_color, ...
-                'Position', [.2, .2, .2, .2], ...
-                'Style', 'text', ...
-                'Tag', 'textCount', ...
-                'String', taskinfo.description);
-
             % Count task response box
             handles.editCount = uicontrol(...
                 'Parent', handles.task_panel, ...
@@ -64,9 +51,21 @@ try
                 'Position', [.45, .2, .1, .2], ...
                 'Style', 'edit', ...
                 'Tag', 'editCount', ...
-                'String', '<int>', ...
-                'KeyPressFcn', @integer_test, ...
                 'Callback', @editCount_Callback);
+            
+            % Automatic registration before focus photo button
+            handles.takePhoto = uicontrol(...
+                'Parent', handles.task_panel, ...
+                'FontSize', handles.myData.settings.FontSize, ...
+                'Units', 'normalized', ...
+                'ForegroundColor',  handles.myData.settings.FG_color, ...
+                'BackgroundColor',  handles.myData.settings.BG_color, ...
+                'Position',[.2, .2, .2, .2], ...
+                'Style', 'pushbutton', ...
+                'Tag', 'takePhoto', ...
+                'enable','on',...
+                'String', 'Take Photo',...
+                'Callback',@takePhoto_Callback);
 
             % Make count task response box active
             uicontrol(handles.editCount);
@@ -82,12 +81,10 @@ try
             
             set(handles.iH,'visible','off');
             set(handles.ImageAxes,'visible','off');
-            delete(handles.textCount);
+            delete(handles.takePhoto);
             delete(handles.editCount);
-            handles = rmfield(handles, 'textCount');
+            handles = rmfield(handles, 'takePhoto');
             handles = rmfield(handles, 'editCount');
-
-            taskimage_archive(handles);
 
         case 'Save_Results' % Save the results for this task
             
@@ -107,7 +104,8 @@ try
                 num2str(taskinfo.zoomflag), ',', ...
                 taskinfo.description, ',', ...
                 num2str(taskinfo.duration), ',', ...
-                num2str(taskinfo.score)]);
+                num2str(taskinfo.score), ',', ...
+                taskinfo.stagePosition]);
             fprintf(taskinfo.fid,'\r\n');
             
     end
@@ -121,51 +119,44 @@ catch ME
     error_show(ME)
 end
 end
-% 
-% function editCount_KeyPressFcn(hObj, eventdata)
-% try
-%     %--------------------------------------------------------------------------
-%     % When the text box is non-empty, the user can continue
-%     %--------------------------------------------------------------------------
-%     handles = guidata(findobj('Tag','GUI'));
-%     editCount_string = eventdata.Key;
-% 
-%     desc_digits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-%     test = max(strcmp(editCount_string, desc_digits));
-%     if test
-%         set(handles.NextButton,'Enable','on');
-%         
-%     else
-%         desc = 'Input should be an integer';
-%         h_errordlg = errordlg(desc,'Application error','modal');
-%         uiwait(h_errordlg)
-% 
-%         set(handles.editCount, 'String', '');
-%         set(handles.NextButton, 'Enable', 'off');
-% 
-%         return
-%     end
-% 
-% catch ME
-%     error_show(ME)
-% end
-% 
-% end
 
 function editCount_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-    valiad_input=taskinfo.valiad_input;
-    if valiad_input==1
-        set(handles.NextButton,'Enable','on');
-        valiad_input=0;
-    else
-        set(handles.NextButton, 'Enable', 'off');
-    end
-    taskinfo.valiad_input=valiad_input;
+    set(handles.NextButton,'Enable','on');
     % Pack the results
     taskinfo.score = get(handles.editCount, 'String');
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
     
 end
+
+% --- Executes on button press in bestPhoto.
+function takePhoto_Callback(hObject, eventdata)
+% hObject    handle to bestPhoto (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+    handles = guidata(findobj('Tag','GUI'));
+   % take picture and remember stage position
+    myData=handles.myData;    
+    cam_image = camera_take_image(handles.cam);
+    taskinfo = myData.tasks_out{myData.iter};
+
+    FolderName=[myData.output_files_dir,...
+               strrep(myData.outputfile,'.dapso','GlobalRegPhoto')];
+    if ~exist(FolderName,'file')
+        mkdir(FolderName);
+    end
+    imwrite(cam_image,strcat(FolderName,'\',...
+                'ID',taskinfo.id,...
+                '_Slot',num2str(taskinfo.slot),...
+                '_Order',num2str(taskinfo.order),...
+                '_FOV.tif'));
+    stage = stage_get_pos(myData.stage,myData.stage.handle);
+    x = stage.Pos(1);
+    y = stage.Pos(2);
+    taskinfo.stagePosition = [int2str(x),',',int2str(y)];
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+    guidata(handles.GUI, handles);
+end
+
