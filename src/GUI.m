@@ -569,10 +569,10 @@ try
                 moveEndTime = clock;  
                 taskinfo.durationMove = etime(moveEndTime, moveStartTime);
                 %auto fast register
-%                 autoRegStartTime = clock;
-%                 Fast_Register_Button_Callback(hObj, eventdata, handles);
-%                 autoRegEndTime = clock;
-%                 taskinfo.durationAutoReg = etime(autoRegEndTime,autoRegStartTime);
+                autoRegStartTime = clock;
+                Fast_Register_Button_Callback(hObj, eventdata, handles);
+                autoRegEndTime = clock;
+                taskinfo.durationAutoReg = etime(autoRegEndTime,autoRegStartTime);
                 
             end
     end

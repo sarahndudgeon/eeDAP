@@ -29,6 +29,8 @@ try
             taskinfo.zoomflag = str2double(desc{13});
             taskinfo.description = char(desc{14});
             taskinfo.rotateback = 0;
+            taskinfo.done(1) = 0;
+            taskinfo.done(2) = 0;
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             
@@ -123,7 +125,10 @@ end
 function editCount_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
-    set(handles.NextButton,'Enable','on');
+    taskinfo.done(1)=1;
+    if  taskinfo.done(1)*taskinfo.done(2)==1
+        set(handles.NextButton,'Enable','on');
+    end
     % Pack the results
     taskinfo.score = get(handles.editCount, 'String');
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
@@ -156,6 +161,10 @@ function takePhoto_Callback(hObject, eventdata)
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition = [int2str(x),',',int2str(y)];
+    taskinfo.done(2)=1;
+    if  taskinfo.done(1)*taskinfo.done(2)==1
+        set(handles.NextButton,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end

@@ -32,6 +32,11 @@ try
             taskinfo.done(1)=0;
             taskinfo.done(2)=0;
             taskinfo.done(3)=0;
+            taskinfo.done(4)=0;
+            taskinfo.done(5)=0;
+            taskinfo.done(6)=0;
+            taskinfo.done(7)=0;
+
         case {'Update_GUI_Elements', ...
                 'ResumeButtonPressed'} % Initialize task elements
             
@@ -260,7 +265,7 @@ function autoReg_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done(1)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)==1
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
         set(handles.NextButton,'Enable','on');
     end
     % Pack the results
@@ -274,7 +279,7 @@ function fastReg_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done(2)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)==1
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
         set(handles.NextButton,'Enable','on');
     end
     % Pack the results
@@ -289,7 +294,7 @@ function bestReg_Callback(hObj, eventdata)
     handles = guidata(findobj('Tag','GUI'));
     taskinfo = handles.myData.tasks_out{handles.myData.iter};
     taskinfo.done(3)=1;
-    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)==1
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
         set(handles.NextButton,'Enable','on');
     end
     % Pack the results
@@ -319,6 +324,12 @@ function autoUnfocusPhoto_Callback(hObject, eventdata)
         '_Slot',num2str(taskinfo.slot),...
         '_Order',num2str(taskinfo.order),...
         '_1autoUnfocus.tif'));
+    taskinfo.done(4)=1;
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
+        set(handles.NextButton,'Enable','on');
+    end
+    handles.myData.tasks_out{handles.myData.iter} = taskinfo;
+    guidata(handles.GUI, handles);
 end
 
 
@@ -346,6 +357,10 @@ function autoFocusPhoto_Callback(hObject, eventdata)
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{1} = [int2str(x),',',int2str(y)];
+    taskinfo.done(5)=1;
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
+        set(handles.NextButton,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
@@ -374,6 +389,10 @@ function fastPhoto_Callback(hObject, eventdata)
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{2} = [int2str(x),',',int2str(y)];
+    taskinfo.done(6)=1;
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
+        set(handles.NextButton,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
@@ -403,6 +422,10 @@ function bestPhoto_Callback(hObject, eventdata)
     x = stage.Pos(1);
     y = stage.Pos(2);
     taskinfo.stagePosition{3} = [int2str(x),',',int2str(y)];
+    taskinfo.done(7)=1;
+    if  taskinfo.done(1)* taskinfo.done(2)*taskinfo.done(3)*taskinfo.done(4)* taskinfo.done(5)*taskinfo.done(6)*taskinfo.done(7)==1
+        set(handles.NextButton,'Enable','on');
+    end
     handles.myData.tasks_out{handles.myData.iter} = taskinfo;
     guidata(handles.GUI, handles);
 end
